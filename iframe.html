@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Embedded iFrame</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            background-color: gray;
+            padding: 15px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="container" class="box">
+        <button id="bottom-button">Go to bottom!</button>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1 id="target">I'm a target!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <h1>tada!</h1>
+        <button id="target-button">Go to target!</button>
+        <button id="top-button">Go to top!</button>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            var sendMessage = function (msg) {
+            	var target = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+                window.parent.postMessage(msg, target);
+            };
+
+            var scrollTo = function(scrollTarget) {
+                var scrollContainer = 'html, body';
+                $(scrollContainer).animate({
+                    scrollTop: scrollTarget
+                }, 200);
+
+                sendMessage(scrollTarget);
+            };
+
+
+            $("#target-button").click(function() {
+                scrollTo($("#target").offset().top);
+            });
+
+            $("#top-button").click(function() {
+                scrollTo(0);
+            });
+
+            $("#bottom-button").click(function() {
+                scrollTo($(document).height());
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .container {
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            iframe {
+                height: 100%;
+                width: 100%;
+                border: 0;
+            }
+        </style>
+        <script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <iframe src="/iframe.html"></iframe>
+            <script type="text/javascript">
+                $(function() {
+                    if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
+
+                    	$('.container').css({
+                          'overflow': 'inherit'
+                        });
+
+                        var scrollTo = function(scrollTarget) {
+                            var scrollContainer = 'html, body';
+                            $(scrollContainer).animate({
+                                scrollTop: scrollTarget
+                            }, 200);
+                        };
+
+                        function receiveMessage(event) {
+                            var scrollTarget = Number(event.data);
+                            scrollTo(scrollTarget);
+                            console.log('message!', scrollTarget);
+                        }
+
+                        window.addEventListener("message", receiveMessage, false);
+
+                        $("iframe").bind("load",function() {
+                            var contents = $(this).contents();
+                            var container = contents.find('#container');
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+    </body>
+</html>
